@@ -37,20 +37,10 @@ git diff HEAD~5..HEAD -- "*.md"
 **Exclude** files matching these patterns:
 - `.obsidian/**`
 - `.claude/**`
-- `02_WeeklyMeeting/**`
 
 ### Step 3: Read Changed Files
 
-For each changed `.md` file found in Step 2, read the **current file content** (not just the diff). Group by project folder:
-
-- `00_random/` — Miscellaneous notes
-- `01_WeeklyLog/` — Weekly logs
-- `10_ResearchIdea/` — Research ideas
-- `11_ExoPlore/` — ExoPlore project
-- `12_CP/` — CP (Contraction Parameter) project
-- `21_CourseWork/` — Course work
-- `22_GradAdmin/` — Graduate administration
-- `99_Archive/` — Archived items
+For each changed `.md` file found in Step 2, read the **current file content** (not just the diff). Group by top-level folder, inferring each folder's purpose from its name.
 
 ### Step 4: Semantic Analysis
 
@@ -58,7 +48,7 @@ Analyze the content using semantic understanding — **NOT keyword matching**. O
 
 1. **Deadlines at risk**: Items with explicit deadlines approaching within 7 days, or overdue
 2. **Blockers**: Problems actively preventing progress on current work
-3. **Action items requiring someone else**: Things waiting on a specific person (교수님, collaborators, etc.) that haven't been resolved
+3. **Action items requiring someone else**: Things waiting on a specific person (advisor, collaborators, etc.) that haven't been resolved
 
 **Do NOT flag**:
 - Vague future plans, research ideas, or "maybe later" notes

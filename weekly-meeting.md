@@ -1,6 +1,6 @@
 # Weekly Meeting Slide Generator
 
-Generate Reveal.js slides for the weekly lab meeting in `02_WeeklyMeeting/`.
+Generate Reveal.js slides for the weekly lab meeting.
 
 **Argument**: $ARGUMENTS (optional — meeting day name, defaults to "Tuesday")
 
@@ -16,9 +16,13 @@ You are generating a weekly meeting slide deck. Follow these steps precisely.
 - Calculate the **previous occurrence before that** (7 days before the meeting date) as the start of the range
 - The date range for git queries is: `[previous meeting day, meeting date)`
 
-### Step 2: Compute File Name
+### Step 2: Discover Output Directory
 
-The output file goes in `02_WeeklyMeeting/` with this naming format:
+Find an existing folder used for meeting slides by looking for a top-level directory whose name suggests meetings or presentations (e.g., contains "meeting", "weekly", "presentation", or similar). If none is found, create a `WeeklyMeeting/` folder at the vault root.
+
+### Step 3: Compute File Name
+
+The output file goes in the meeting directory found in Step 2, with this naming format:
 
 ```
 DD, Mon, Nth.md
@@ -31,12 +35,11 @@ Where:
 
 Examples: `29, Jan, 5th.md`, `07, Feb, 1st.md`, `14, Jan, 2nd.md`
 
-### Step 3: Gather Changes from Git
+### Step 4: Gather Changes from Git
 
 Run these commands to find what changed since the last meeting day:
 
 ```bash
-# Find the git log since the previous meeting day
 git log --since="<previous-meeting-day-ISO-date>" --until="<meeting-day-ISO-date-plus-1>" --diff-filter=ACDMR --name-only --pretty=format:"" -- "*.md"
 ```
 
@@ -55,22 +58,13 @@ git diff HEAD~10..HEAD -- "*.md"
 **Exclude** files matching these patterns:
 - `.obsidian/**`
 - `.claude/**`
-- `02_WeeklyMeeting/**`
+- The meeting output directory itself
 
-### Step 4: Read Changed Files
+### Step 5: Read Changed Files
 
-For each changed `.md` file found in Step 3, read the file content to understand what work was done. Group the changes by project folder:
+For each changed `.md` file found in Step 4, read the file content to understand what work was done. Group the changes by top-level folder, inferring each folder's purpose from its name.
 
-- `00_random/` — Miscellaneous notes
-- `01_WeeklyLog/` — Weekly logs
-- `10_ResearchIdea/` — Research ideas
-- `11_ExoPlore/` — ExoPlore project
-- `12_CP/` — CP (Contraction Parameter) project
-- `21_CourseWork/` — Course work
-- `22_GradAdmin/` — Graduate administration
-- `99_Archive/` — Archived items
-
-### Step 5: Present Agenda for Approval (IMPORTANT)
+### Step 6: Present Agenda for Approval (IMPORTANT)
 
 Before generating the final file, you MUST present an agenda outline to the user and wait for approval. Show:
 
@@ -80,9 +74,9 @@ Before generating the final file, you MUST present an agenda outline to the user
 
 Ask the user to confirm, modify, or add items before proceeding.
 
-### Step 6: Generate the Slide File
+### Step 7: Generate the Slide File
 
-After user approval, create the file at `02_WeeklyMeeting/<computed-filename>` using this Reveal.js template (Obsidian Slides plugin uses `---` as horizontal slide separator):
+After user approval, create the file at `<meeting-directory>/<computed-filename>` using this Reveal.js template (Obsidian Slides plugin uses `---` as horizontal slide separator):
 
 ```markdown
 ### YYYY.MM.DD
@@ -127,7 +121,7 @@ After user approval, create the file at `02_WeeklyMeeting/<computed-filename>` u
 - Keep bullets concise — this is a presentation, not a document
 - Do NOT add any YAML frontmatter or extra metadata
 
-### Step 7: Confirm Output
+### Step 8: Confirm Output
 
 After creating the file, tell the user:
 - The file path created

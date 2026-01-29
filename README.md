@@ -2,6 +2,8 @@
 
 Custom [Claude Code](https://claude.ai/claude-code) slash commands for managing an Obsidian-based lab notebook.
 
+These commands are vault-agnostic — they infer folder purposes from names rather than relying on a hardcoded directory layout.
+
 ## Commands
 
 ### `/daily-todo`
@@ -31,19 +33,3 @@ git clone https://github.com/DaebangStn/obsidian-cc-command.git
 ln -s obsidian-cc-command/daily-todo.md <vault>/.claude/commands/daily-todo.md
 ln -s obsidian-cc-command/weekly-meeting.md <vault>/.claude/commands/weekly-meeting.md
 ```
-
-## Vault Structure
-
-These commands assume the following folder layout:
-
-| Folder | Content |
-|---|---|
-| `00_random/` | Miscellaneous notes |
-| `01_WeeklyLog/` | Weekly logs |
-| `02_WeeklyMeeting/` | Meeting slides (output) |
-| `10_ResearchIdea/` | Research ideas |
-| `11_ExoPlore/` | ExoPlore project |
-| `12_CP/` | CP project |
-| `21_CourseWork/` | Course work |
-| `22_GradAdmin/` | Graduate administration |
-| `99_Archive/` | Archived items |
