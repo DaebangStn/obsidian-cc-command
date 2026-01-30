@@ -18,14 +18,23 @@ You are scanning recent changes to surface unresolved work, open questions, and 
 
 Run these commands to find what changed in the date range:
 
+**Committed changes:**
 ```bash
 git log --since="<start-date-ISO>" --diff-filter=ACDMR --name-only --pretty=format:"" -- "*.md"
+```
+
+**Unstaged and uncommitted changes (IMPORTANT — always include these):**
+```bash
+git diff --name-only -- "*.md"
+git diff --cached --name-only -- "*.md"
 ```
 
 Then read the actual diffs to understand the content:
 
 ```bash
 git diff $(git log --since="<start-date-ISO>" --format="%H" --reverse -- "*.md" | tail -1)^..HEAD -- "*.md"
+git diff -- "*.md"
+git diff --cached -- "*.md"
 ```
 
 If git log returns no commits, fall back to:
@@ -33,6 +42,8 @@ If git log returns no commits, fall back to:
 ```bash
 git diff HEAD~5..HEAD -- "*.md"
 ```
+
+**Combine all sources**: Merge file lists from committed, staged, and unstaged changes, removing duplicates.
 
 **Exclude** files matching these patterns:
 - `.obsidian/**`
